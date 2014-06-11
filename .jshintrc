@@ -1,19 +1,17 @@
 {
 	"node": true,
 
-	"noempty": true,
-	"latedef": true,
-	"quotmark": "single",
-
 	"bitwise": true,
-	"browser": true,
 	"eqeqeq": true,
+	"es3": true,
 	"forin": true,
+	"latedef": true,
 	"noarg": true,
-	"regexdash": true,
-	"smarttabs": true,
+	"noempty": true,
+	"nonew": true,
+	"quotmark": "single",
+	"strict": true,
 	"trailing": true,
 	"undef": true,
-	"unused": true,
-	"wsh": false
+	"unused": true
 }
