@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('better-assert');
 var through = require('through2');
 
