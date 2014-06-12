@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/denis-sokolov/frozen-express",
   "dependencies": {
+    "promise": "^5.0.0",
     "supertest": "^0.13.0",
     "through2": "^0.5.1",
     "vinyl": "^0.2.3"
