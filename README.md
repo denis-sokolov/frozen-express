@@ -4,6 +4,7 @@ Frozen Express generates a collection of static files for an Express.js applicat
 
 [![Build Status](https://travis-ci.org/denis-sokolov/frozen-express.svg?branch=master)](https://travis-ci.org/denis-sokolov/frozen-express)
 [![Code Climate](http://img.shields.io/codeclimate/github/denis-sokolov/frozen-express.svg)](https://codeclimate.com/github/denis-sokolov/frozen-express)
+[![Coverage Status](https://img.shields.io/coveralls/denis-sokolov/frozen-express.svg)](https://coveralls.io/r/denis-sokolov/frozen-express?branch=master)
 [![Dependency Status](https://gemnasium.com/denis-sokolov/frozen-express.svg)](https://gemnasium.com/denis-sokolov/frozen-express)
 
 ## Usage
