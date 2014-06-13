@@ -17,6 +17,15 @@ var lib = {
 		path: '/hello',
 		expect: {path: 'hello.html', contents: 'Hello world!'}
 	},
+	index: {
+		register: function(app) {
+			app.get(this.path, function(req, res){
+				res.send('Welcome!');
+			});
+		},
+		path: '/',
+		expect: {path: 'index.html', contents: 'Welcome!'}
+	},
 	goodbye: {
 		register: function(app) {
 			app.get(this.path, function(req, res){
@@ -46,6 +55,16 @@ describe('simplest use cases', function(){
 		util.checkPipeContents(
 			frozen(app, {routes: [lib.goodbye.path, lib.hello.path]}),
 			[lib.hello.expect, lib.goodbye.expect],
+			done
+		);
+	});
+
+	it('should handle root index path', function(done){
+		var app = express();
+		lib.index.register(app);
+		util.checkPipeContents(
+			frozen(app, {routes: [lib.index.path]}),
+			[lib.index.expect],
 			done
 		);
 	});

@@ -15,6 +15,8 @@ module.exports = function(app, options) {
 	options.routes.forEach(function(route){
 		promises.push(new Promise(function(resolve){
 			supertest(app).get(route).end(function(err, res){
+				if (/\/$/.exec(route))
+					route += 'index';
 				pipe.push(new File({
 					contents: new Buffer(res.text),
 					path: process.cwd() + route + '.html',
