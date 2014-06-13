@@ -1,6 +1,6 @@
 {
   "name": "frozen-express",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Freeze an Express.js application into a set of static files",
   "main": "src/frozen.js",
   "scripts": {
