@@ -16,7 +16,7 @@ api.checkPipeContents = function(pipe, contents, done){
 		}
 		contents.forEach(function(target){
 			var found = result.some(function(attempt){
-				if (target.path && attempt.path.substr(attempt.base.length) !== '/' + target.path) {
+				if (target.path && attempt.relative !== target.path) {
 					return false;
 				}
 				if (target.contents && attempt.contents.toString() !== target.contents) {
