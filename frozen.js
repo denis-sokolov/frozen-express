@@ -1,9 +1,11 @@
 'use strict';
 
 var File = require('vinyl');
+var mime = require('mime');
 var Promise = require('promise');
 var supertest = require('supertest');
 var through = require('through2');
+
 
 module.exports = function(app, options) {
 	options = options || {};
@@ -19,7 +21,7 @@ module.exports = function(app, options) {
 					route += 'index';
 				pipe.push(new File({
 					contents: new Buffer(res.text),
-					path: process.cwd() + route + '.html',
+					path: process.cwd() + route + '.' + mime.extension(res.get('content-type')),
 					base: process.cwd()
 				}));
 				resolve();

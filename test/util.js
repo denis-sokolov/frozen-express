@@ -17,6 +17,9 @@ lib.makeapp = function(express, routes) {
 	var app = express();
 	routes.forEach(function(route){
 		app.get(route.url, function(req, res){
+			if (route.handler) {
+				route.handler(res);
+			}
 			res.send(route.contents);
 		});
 	});
@@ -45,9 +48,9 @@ api.test = function(frozen, express){
 		var routes = [];
 		var test = {};
 
-		test.route = function(url, path, contents){
+		test.route = function(url, path, contents, handler){
 			routes.push({
-				url: url, path: path, contents: contents
+				url: url, path: path, contents: contents, handler: handler
 			});
 			return test;
 		};
