@@ -25,7 +25,7 @@ api.checkPipeContents = function(pipe, contents, done){
 				return true;
 			});
 			if (!found) {
-				console.warn('Did not find', target, 'among', contents);
+				console.warn('Did not find', target, 'among', result);
 				throw new Error('Did not find an expected item in the pipe');
 			}
 		});
