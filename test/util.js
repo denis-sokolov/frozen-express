@@ -69,11 +69,12 @@ api.test = function(frozen, express){
 
 		test.run = function(options){
 			options = options || {};
+			options.checkRoutes = options.checkRoutes || routes;
 
 			test.results({
 				urls: options.urls
 			}).then(function(results){
-				var missing = routes.filter(function(route){
+				var missing = options.checkRoutes.filter(function(route){
 					return !results.some(function(attempt){
 						if (attempt.relative !== route.path) {
 							return false;
