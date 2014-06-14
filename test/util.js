@@ -55,17 +55,24 @@ api.test = function(frozen, express){
 			return test;
 		};
 
-		test.results = function(){
+		test.results = function(options){
+			options = options || {};
+			options.urls = options.urls || routes.map(function(route){
+				return route.url;
+			});
+
 			var app = lib.makeapp(express, routes);
 			return lib.pipeContents(frozen(app, {
-				urls: routes.map(function(route){
-					return route.url;
-				})
+				urls: options.urls
 			}));
 		};
 
-		test.run = function(){
-			test.results().then(function(results){
+		test.run = function(options){
+			options = options || {};
+
+			test.results({
+				urls: options.urls
+			}).then(function(results){
 				var missing = routes.filter(function(route){
 					return !results.some(function(attempt){
 						if (attempt.relative !== route.path) {
