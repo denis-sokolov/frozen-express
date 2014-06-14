@@ -6,6 +6,7 @@ var Promise = require('promise');
 var supertest = require('supertest');
 var through = require('through2');
 
+var errors = require('./errors.js');
 
 module.exports = function(app, options) {
 	options = options || {};
@@ -13,6 +14,12 @@ module.exports = function(app, options) {
 
 	var pipe = through.obj();
 	var promises = [];
+
+	app.use(function(req){
+		pipe.emit('error', new errors.ConfigurationError(
+			'URL '+req.originalUrl+' does not have a handler.'
+		));
+	});
 
 	options.urls.forEach(function(url){
 		promises.push(new Promise(function(resolve){
@@ -35,3 +42,5 @@ module.exports = function(app, options) {
 
 	return pipe;
 };
+
+module.exports.errors = errors;
