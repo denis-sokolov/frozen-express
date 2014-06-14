@@ -32,8 +32,9 @@ lib.makeapp = function(express, routes) {
  * @return Promise([contents])
  */
 lib.pipeContents = function(pipe){
-	return new Promise(function(resolve){
+	return new Promise(function(resolve, reject){
 		var result = [];
+		pipe.on('error', function(err){ reject(err); });
 		pipe.pipe(through.obj(function(data, enc, next){
 			result.push(data);
 			next();
@@ -71,7 +72,7 @@ api.test = function(frozen, express){
 			options = options || {};
 			options.checkRoutes = options.checkRoutes || routes;
 
-			test.results({
+			return test.results({
 				urls: options.urls
 			}).then(function(results){
 				var missing = options.checkRoutes.filter(function(route){
