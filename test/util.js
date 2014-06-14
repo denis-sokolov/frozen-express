@@ -55,13 +55,17 @@ api.test = function(frozen, express){
 			return test;
 		};
 
-		test.run = function(){
+		test.results = function(){
 			var app = lib.makeapp(express, routes);
-			lib.pipeContents(frozen(app, {
+			return lib.pipeContents(frozen(app, {
 				routes: routes.map(function(route){
 					return route.url;
 				})
-			})).then(function(results){
+			}));
+		};
+
+		test.run = function(){
+			test.results().then(function(results){
 				var missing = routes.filter(function(route){
 					return !results.some(function(attempt){
 						if (attempt.relative !== route.path) {
