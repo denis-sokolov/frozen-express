@@ -58,7 +58,7 @@ api.test = function(frozen, express){
 		test.results = function(){
 			var app = lib.makeapp(express, routes);
 			return lib.pipeContents(frozen(app, {
-				routes: routes.map(function(route){
+				urls: routes.map(function(route){
 					return route.url;
 				})
 			}));
