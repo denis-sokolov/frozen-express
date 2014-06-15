@@ -14,16 +14,18 @@ var lib = {};
  * @return express app
  */
 lib.makeapp = function(express, routes) {
-	var app = express();
-	routes.forEach(function(route){
-		app.get(route.url, function(req, res){
-			if (route.handler) {
-				route.handler(res);
-			}
-			res.send(route.contents);
+	return new Promise(function(resolve){
+		var app = express();
+		routes.forEach(function(route){
+			app.get(route.url, function(req, res){
+				if (route.handler) {
+					route.handler(res);
+				}
+				res.send(route.contents);
+			});
 		});
+		resolve(app);
 	});
-	return app;
 };
 
 /**
@@ -62,10 +64,11 @@ api.test = function(frozen, express){
 				return route.url;
 			});
 
-			var app = lib.makeapp(express, routes);
-			return lib.pipeContents(frozen(app, {
-				urls: options.urls
-			}));
+			return lib.makeapp(express, routes).then(function(app){
+				return lib.pipeContents(frozen(app, {
+					urls: options.urls
+				}));
+			});
 		};
 
 		test.run = function(options){
