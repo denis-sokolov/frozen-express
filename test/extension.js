@@ -23,3 +23,10 @@ it('should not double similar extensions', function(done){
 		.run();
 });
 
+it('should handle binary files smarter', function(done){
+	test(done)
+		.route('/foo.zip', 'foo.zip', 'abc', function(res){
+			res.set('content-type', 'application/octet-stream');
+		})
+		.run();
+});

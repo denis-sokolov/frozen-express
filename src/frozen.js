@@ -28,7 +28,7 @@ module.exports = function(app, options) {
 					url += 'index';
 
 				var correctExt = mime.extension(res.get('content-type'));
-				if (mime.extension(mime.lookup(url)) !== correctExt)
+				if (correctExt !== 'bin' && mime.extension(mime.lookup(url)) !== correctExt)
 					url += '.' + correctExt;
 
 				pipe.push(new File({
