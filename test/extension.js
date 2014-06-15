@@ -17,3 +17,9 @@ it('should not double the extension', function(done){
 		.run();
 });
 
+it('should not double similar extensions', function(done){
+	test(done)
+		.route('/foo.htm', 'foo.htm', 'Hello')
+		.run();
+});
+

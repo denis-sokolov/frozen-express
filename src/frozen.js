@@ -1,7 +1,5 @@
 'use strict';
 
-var path = require('path');
-
 var File = require('vinyl');
 var mime = require('mime');
 var Promise = require('promise');
@@ -29,10 +27,9 @@ module.exports = function(app, options) {
 				if (/\/$/.exec(url))
 					url += 'index';
 
-				var currentExt = path.extname(url);
-				var correctExt = '.'+mime.extension(res.get('content-type'));
-				if (currentExt !== correctExt)
-					url += correctExt;
+				var correctExt = mime.extension(res.get('content-type'));
+				if (mime.extension(mime.lookup(url)) !== correctExt)
+					url += '.' + correctExt;
 
 				pipe.push(new File({
 					contents: new Buffer(res.text),
