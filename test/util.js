@@ -60,9 +60,11 @@ api.test = function(frozen, express){
 
 		test.results = function(options){
 			options = options || {};
-			options.urls = options.urls || routes.map(function(route){
-				return route.url;
-			});
+			if (options.urls !== null) {
+				options.urls = options.urls || routes.map(function(route){
+					return route.url;
+				});
+			}
 
 			return lib.makeapp(express, routes).then(function(app){
 				return lib.pipeContents(frozen(app, {
