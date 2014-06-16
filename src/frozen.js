@@ -7,10 +7,11 @@ var supertest = require('supertest');
 var through = require('through2');
 
 var errors = require('./errors.js');
+var routes = require('./lib/routes.js');
 
 module.exports = function(app, options) {
 	options = options || {};
-	options.urls = options.urls || [];
+	options.urls = options.urls || routes.detectUrls(app);
 
 	var pipe = through.obj();
 	var promises = [];

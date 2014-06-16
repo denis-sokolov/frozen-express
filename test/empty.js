@@ -25,3 +25,15 @@ it('should not create files for an app with no routes', function(done){
 			}
 		});
 });
+
+it('should not create files when urls are set to none', function(done){
+	test(done)
+		.route('/', 'index.html', 'Hello!')
+		.results({urls: []}).then(function(results){
+			if (results.length > 0) {
+				done(new Error('Created files when not asked'));
+			} else {
+				done();
+			}
+		});
+});

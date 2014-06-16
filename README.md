@@ -14,13 +14,7 @@ Officially only Express 4 applications are supported, but Express 3 application 
 ```javascript
 var frozen = require('frozen-express');
 
-var stream = frozen(app, {
-    urls: [
-        '/',
-        '/about',
-        '/contact'
-    ]
-});
+var stream = frozen(app);
 ```
 
 You can do with the generated `Stream` whatever you want, but the simplest thing is to use `gulp-dest`:
@@ -29,11 +23,19 @@ You can do with the generated `Stream` whatever you want, but the simplest thing
 var gulp = require('gulp');
 var frozen = require('frozen-express');
 
-frozen(app, {
-    urls: [
-        '/'
-    ]
-}).pipe(gulp.dest('./dist'));
+frozen(app).pipe(gulp.dest('./dist'));
 ```
 
 You can also include it in your Gulp workflow and perform more tasks with files.
+
+### Options
+
+Frozen Express supports a number of options:
+
+```javascript
+var stream = frozen(app, {
+    // A list of URLs to freeze
+    // By default Frozen will try to detect the URLs itself
+    urls: ['/', '/about', '/contact']
+});
+```
