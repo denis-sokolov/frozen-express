@@ -15,7 +15,7 @@ Officially only Express 4 applications are supported, but Express 3 application 
 var frozen = require('frozen-express');
 
 var stream = frozen(app, {
-    routes: [
+    urls: [
         '/',
         '/about',
         '/contact'
@@ -30,7 +30,7 @@ var gulp = require('gulp');
 var frozen = require('frozen-express');
 
 frozen(app, {
-    routes: [
+    urls: [
         '/'
     ]
 }).pipe(gulp.dest('./dist'));
