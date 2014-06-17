@@ -1,5 +1,7 @@
 'use strict';
 
+var express = require('express');
+var express3 = require('express3');
 var Promise = require('promise');
 var through = require('through2');
 
@@ -46,8 +48,24 @@ lib.pipeContents = function(pipe){
 	});
 };
 
-api.test = function(frozen, express){
-	return function(done){
+/**
+ * Run a single test with multiple Express application versions
+ * @param name
+ * @param {Function} callback
+ */
+api.it = function(name, callback){
+	/* global it */
+	it('[express4] '+name, function(done){
+		callback(express, done);
+	});
+
+	it('[express3] '+name, function(done){
+		callback(express3, done);
+	});
+};
+
+api.test = function(frozen){
+	return function(express, done){
 		var routes = [];
 		var test = {};
 

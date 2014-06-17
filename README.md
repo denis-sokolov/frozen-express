@@ -2,7 +2,7 @@
 
 Frozen Express generates a collection of static files for an Express.js application allowing to host said application easily and cheaply.
 
-Officially only Express 4 applications are supported, but Express 3 application seem to work fine at the moment.
+Express 4 and Express 3 applications are supported.
 
 [![Build Status](https://travis-ci.org/denis-sokolov/frozen-express.svg?branch=master)](https://travis-ci.org/denis-sokolov/frozen-express)
 [![Code Climate](http://img.shields.io/codeclimate/github/denis-sokolov/frozen-express.svg)](https://codeclimate.com/github/denis-sokolov/frozen-express)

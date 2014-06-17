@@ -1,16 +1,12 @@
 'use strict';
 
-var express = require('express');
-
 var frozen = require('..');
 var util = require('./util.js');
 
-var test = util.test(frozen, express);
+var test = util.test(frozen);
 
-/* global it */
-
-it('should error on a 404', function(done){
-	test(done)
+util.it('should error on a 404', function(express, done){
+	test(express, done)
 		.run({urls:['/404']})
 		.catch(function(err){
 			if (err instanceof frozen.errors.ConfigurationError) done(); else done(err);

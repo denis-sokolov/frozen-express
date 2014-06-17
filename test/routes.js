@@ -1,24 +1,20 @@
 'use strict';
 
-var express = require('express');
-
 var frozen = require('..');
 var util = require('./util.js');
 
-var test = util.test(frozen, express);
+var test = util.test(frozen);
 
-/* global it */
-
-it('should detect a route by itself', function(done){
-	test(done)
+util.it('should detect a route by itself', function(express, done){
+	test(express, done)
 		.route('/hello', 'hello.html', 'Hello world!')
 		.run({
 			urls: null
 		});
 });
 
-it('should detect multiple routes by itself', function(done){
-	test(done)
+util.it('should detect multiple routes by itself', function(express, done){
+	test(express, done)
 		.route('/hello', 'hello.html', 'Hello world!')
 		.route('/', 'index.html', 'Welcome!')
 		.route('/goodbye', 'goodbye.html', 'Goodbye!')
