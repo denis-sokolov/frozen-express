@@ -13,7 +13,7 @@ var detectExpress3Urls = function(app){
 
 /**
  * Warning!
- * This function access private API for Express 4
+ * This function accesses private API for Express 4
  */
 var detectExpress4Urls = function(app){
 	return app._router.stack.filter(function(routeItem){
