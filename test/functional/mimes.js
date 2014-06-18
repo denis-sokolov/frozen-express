@@ -1,6 +1,6 @@
 'use strict';
 
-var frozen = require('..');
+var frozen = require('../..');
 var util = require('./util.js');
 
 var test = util.test(frozen);
