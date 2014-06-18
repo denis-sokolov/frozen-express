@@ -4,10 +4,10 @@
   "description": "Freeze an Express.js application into a set of static files",
   "main": "src/frozen.js",
   "scripts": {
-    "report-coverage": "istanbul cover --report lcovonly _mocha test && coveralls < coverage/lcov.info",
-    "coverage": "istanbul cover _mocha test",
+    "report-coverage": "istanbul cover --report lcovonly _mocha test test/functional && coveralls < coverage/lcov.info",
+    "coverage": "istanbul cover _mocha test test/functional",
     "lint": "jshint src",
-    "test": "mocha test && npm run lint"
+    "test": "mocha test test/functional && npm run lint"
   },
   "repository": {
     "type": "git",
