@@ -1,7 +1,7 @@
 'use strict';
 
 var frozen = require('../..');
-var util = require('./util.js');
+var util = require('./lib/util.js');
 
 var test = util.test(frozen);
 

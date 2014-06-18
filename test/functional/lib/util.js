@@ -5,6 +5,8 @@ var express3 = require('express3');
 var Promise = require('promise');
 var through = require('through2');
 
+var frozen = require('../../..');
+
 var api = {};
 
 var lib = {};
@@ -64,7 +66,7 @@ api.it = function(name, callback){
 	});
 };
 
-api.test = function(frozen){
+api.test = function(){
 	return function(express, done){
 		var routes = [];
 		var test = {};
