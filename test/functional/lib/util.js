@@ -87,25 +87,22 @@ api.test = function(){
 			}
 
 			return lib.makeapp(express, routes).then(function(app){
-				return lib.pipeContents(frozen(app, {
-					urls: options.urls
-				}));
+				return lib.pipeContents(frozen(app, options));
 			});
 		};
 
 		test.run = function(options){
 			options = options || {};
-			options.checkRoutes = options.checkRoutes || routes;
+			var checkFiles = options.checkFiles || options.checkRoutes || routes;
+			delete options.checkFiles;
 
-			return test.results({
-				urls: options.urls
-			}).then(function(results){
-				var missing = options.checkRoutes.filter(function(route){
+			return test.results(options).then(function(results){
+				var missing = checkFiles.filter(function(file){
 					return !results.some(function(attempt){
-						if (attempt.relative !== route.path) {
+						if (file.path !== attempt.relative) {
 							return false;
 						}
-						if (attempt.contents.toString() !== route.contents) {
+						if (file.contents && file.contents !== attempt.contents.toString()) {
 							return false;
 						}
 						return true;
