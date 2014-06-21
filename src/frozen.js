@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+
 var File = require('vinyl');
 var mime = require('mime');
 var Promise = require('promise');
@@ -11,6 +13,7 @@ var routes = require('./lib/routes.js');
 
 module.exports = function(app, options) {
 	options = options || {};
+	options.htaccess = !!options.htaccess;
 	options.urls = options.urls || routes.detectUrls(app);
 
 	var pipe = through.obj();
@@ -48,6 +51,16 @@ module.exports = function(app, options) {
 			});
 		}));
 	});
+
+	if (options.htaccess) {
+		promises.push(new Promise(function(resolve){
+			fs.readFile(__dirname + '/server/htaccess', function(err, contents){
+				if (err) throw err;
+				addFile('.htaccess', contents);
+				resolve();
+			});
+		}));
+	}
 
 	Promise.all(promises).then(function(){
 		pipe.end();
