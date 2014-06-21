@@ -11,6 +11,8 @@ var through = require('through2');
 var errors = require('./errors.js');
 var routes = require('./lib/routes.js');
 
+var readFile = Promise.denodeify(fs.readFile);
+
 module.exports = function(app, options) {
 	options = options || {};
 	options.htaccess = !!options.htaccess;
@@ -53,12 +55,8 @@ module.exports = function(app, options) {
 	});
 
 	if (options.htaccess) {
-		promises.push(new Promise(function(resolve){
-			fs.readFile(__dirname + '/server/htaccess', function(err, contents){
-				if (err) throw err;
-				addFile('.htaccess', contents);
-				resolve();
-			});
+		promises.push(readFile(__dirname + '/server/htaccess').then(function(contents){
+			addFile('.htaccess', contents);
 		}));
 	}
 
