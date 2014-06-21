@@ -71,6 +71,10 @@ api.test = function(){
 		var routes = [];
 		var test = {};
 
+		test.app = function(){
+			return lib.makeapp(express, routes);
+		};
+
 		test.route = function(url, path, contents, handler){
 			routes.push({
 				url: url, path: path, contents: contents, handler: handler
@@ -86,7 +90,7 @@ api.test = function(){
 				});
 			}
 
-			return lib.makeapp(express, routes).then(function(app){
+			return test.app().then(function(app){
 				return lib.pipeContents(frozen(app, options));
 			});
 		};
