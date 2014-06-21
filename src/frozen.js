@@ -39,12 +39,13 @@ module.exports = function(app, options) {
 	};
 
 	options.urls.forEach(function(url){
-		promises.push(new Promise(function(resolve){
+		promises.push(new Promise(function(resolve, reject){
 			supertest(app).get(url).end(function(err, res){
 				if (/\/$/.exec(url))
 					url += 'index';
-
 				var correctExt = mime.extension(res.get('content-type'));
+				if (!correctExt)
+					reject(new Error('Strange content type', res.get('content-type')));
 				if (correctExt !== 'bin' && mime.extension(mime.lookup(url)) !== correctExt)
 					url += '.' + correctExt;
 
@@ -62,6 +63,8 @@ module.exports = function(app, options) {
 
 	Promise.all(promises).then(function(){
 		pipe.end();
+	}).catch(function(err){
+		pipe.emit('error', err);
 	});
 
 	return pipe;
