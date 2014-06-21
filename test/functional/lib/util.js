@@ -15,7 +15,7 @@ var lib = {};
  * Create an express app using route data
  * @param express library
  * @param [{url}] routes
- * @return express app
+ * @return Promise(express app)
  */
 lib.makeapp = function(express, routes) {
 	return new Promise(function(resolve){
