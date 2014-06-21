@@ -3,7 +3,7 @@
 
 	"bitwise": true,
 	"eqeqeq": true,
-	"es3": true,
+	"es3": false,
 	"forin": true,
 	"latedef": true,
 	"noarg": true,
