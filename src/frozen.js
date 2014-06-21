@@ -22,6 +22,17 @@ module.exports = function(app, options) {
 		));
 	});
 
+	var addFile = function(path, contents) {
+		if (path.substr(0, 1) !== '/') {
+			path = '/' + path;
+		}
+		pipe.push(new File({
+			contents: new Buffer(contents),
+			path: process.cwd() + path,
+			base: process.cwd()
+		}));
+	};
+
 	options.urls.forEach(function(url){
 		promises.push(new Promise(function(resolve){
 			supertest(app).get(url).end(function(err, res){
@@ -32,11 +43,7 @@ module.exports = function(app, options) {
 				if (correctExt !== 'bin' && mime.extension(mime.lookup(url)) !== correctExt)
 					url += '.' + correctExt;
 
-				pipe.push(new File({
-					contents: new Buffer(res.text),
-					path: process.cwd() + url,
-					base: process.cwd()
-				}));
+				addFile(url, res.text);
 				resolve();
 			});
 		}));
