@@ -50,6 +50,9 @@ module.exports = function(app, options) {
 						'URL '+url+' does not have a handler.'
 					));
 
+				if (res.statusCode > 299)
+					return reject(new Error(res.text));
+
 				if (/\/$/.exec(url))
 					url += 'index';
 				var correctExt = mime.extension(res.get('content-type'));

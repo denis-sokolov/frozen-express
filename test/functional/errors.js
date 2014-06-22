@@ -8,7 +8,23 @@ var test = util.test(frozen);
 util.it('should handle errors properly', function(express, done){
 	test(express, done)
 		.route('/', 'index.html', 'Hello!', function(res){
-			res.set('content-type', 'WRONG CONTENT_TYPE');
+			res.status(500);
+		})
+		.app().then(function(app){
+			frozen(app)
+				.on('error', function(){
+					done();
+				})
+				.on('finish', function(){
+					done(new Error('Should not have finished successfully'));
+				});
+		});
+});
+
+util.it('should handle wrong content type properly', function(express, done){
+	test(express, done)
+		.route('/', 'index.html', 'Hello!', function(res){
+			res.set('content-type', 'application/fooqwiorjqwfw');
 		})
 		.app().then(function(app){
 			frozen(app)
