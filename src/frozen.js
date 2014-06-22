@@ -22,7 +22,11 @@ module.exports = function(app, options) {
 	var pipe = through.obj();
 	var promises = [];
 
-	app.use(function(req, res){
+	// Express does not seem to provide API to unregister handlers
+	// Work around that with done + next
+	var done = false;
+	app.use(function(req, res, next){
+		if (done) return next();
 		res.send(unhandled);
 	});
 
@@ -67,6 +71,7 @@ module.exports = function(app, options) {
 
 	Promise.all(promises).then(function(){
 		pipe.end();
+		done = true;
 	}).catch(function(err){
 		pipe.emit('error', err);
 	});
