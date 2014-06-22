@@ -1,7 +1,5 @@
 'use strict';
 
-var fs = require('fs');
-
 var File = require('vinyl');
 var mime = require('mime');
 var Promise = require('promise');
@@ -9,14 +7,17 @@ var supertest = require('supertest');
 var through = require('through2');
 
 var errors = require('./errors.js');
+var servers = {
+	apache: require('./servers/apache.js')
+};
 var routes = require('./lib/routes.js');
 
-var readFile = Promise.denodeify(fs.readFile);
 var unhandled = 'FROZEN_UNHANDLED';
 
 module.exports = function(app, options) {
 	options = options || {};
-	options.htaccess = !!options.htaccess;
+	if (options.server && !(options.server in servers))
+		throw new errors.ConfigurationError('Invalid server setting');
 	options.urls = options.urls || routes.detectUrls(app);
 
 	var pipe = through.obj();
@@ -63,10 +64,8 @@ module.exports = function(app, options) {
 		}));
 	});
 
-	if (options.htaccess) {
-		promises.push(readFile(__dirname + '/server/htaccess').then(function(contents){
-			addFile('.htaccess', contents);
-		}));
+	if (options.server) {
+		promises.push(servers[options.server](addFile));
 	}
 
 	Promise.all(promises).then(function(){

@@ -10,7 +10,7 @@ util.it('should create an .htaccess file when asked for', function(express, done
 		.route('/', 'index.html', 'Hello!')
 		.run({
 			checkFiles: [{path:'.htaccess'}],
-			htaccess: true
+			server: 'apache'
 		});
 });
 
@@ -18,6 +18,6 @@ util.it('should create an .htaccess file even if no routes', function(express, d
 	test(express, done)
 		.run({
 			checkFiles: [{path:'.htaccess'}],
-			htaccess: true
+			server: 'apache'
 		});
 });

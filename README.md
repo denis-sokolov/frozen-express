@@ -34,9 +34,9 @@ Frozen Express supports a number of options:
 
 ```javascript
 var stream = frozen(app, {
-    // Add a .htaccess file for serving with Apache
-    // By default will not create the file
-    htaccess: false
+    // Add control files for serving the application with a particular server
+    // Valid options: 'apache'
+    server: false,
 
     // A list of URLs to freeze
     // By default Frozen will try to detect the URLs itself

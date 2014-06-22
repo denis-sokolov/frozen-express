@@ -10,17 +10,17 @@ var argparser = new argparse.ArgumentParser({
 	addHelp: true,
 	description: 'Generate a website for server configuration testing'
 });
+argparser.addArgument(['server'], {
+	choices: ['apache'],
+	help: 'Server name to build for'
+});
 argparser.addArgument(['path'], {
 	help: 'Directory to put the built website'
-});
-argparser.addArgument(['--htaccess'], {
-	action: 'storeTrue',
-	help: 'Include .htaccess file in the build'
 });
 var args = argparser.parseArgs();
 
 var pipe = frozen(app, {
-	htaccess: args.htaccess
+	server: args.server
 });
 pipe.pipe(gulp.dest(args.path));
 pipe.on('finish', function(){
