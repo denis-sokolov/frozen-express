@@ -68,11 +68,17 @@ api.it = function(name, callback){
 
 api.test = function(){
 	return function(express, done){
+		var rethrow = false;
 		var routes = [];
 		var test = {};
 
 		test.app = function(){
 			return lib.makeapp(express, routes);
+		};
+
+		test.rethrow = function(){
+			rethrow = true;
+			return test;
 		};
 
 		test.route = function(url, path, contents, handler){
@@ -118,6 +124,9 @@ api.test = function(){
 				} else {
 					done();
 				}
+			}).catch(function(e){
+				if (rethrow) throw e;
+				done(e);
 			});
 		};
 
