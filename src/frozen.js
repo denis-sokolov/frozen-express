@@ -12,6 +12,7 @@ var errors = require('./errors.js');
 var routes = require('./lib/routes.js');
 
 var readFile = Promise.denodeify(fs.readFile);
+var unhandled = 'FROZEN_UNHANDLED';
 
 module.exports = function(app, options) {
 	options = options || {};
@@ -21,10 +22,8 @@ module.exports = function(app, options) {
 	var pipe = through.obj();
 	var promises = [];
 
-	app.use(function(req){
-		pipe.emit('error', new errors.ConfigurationError(
-			'URL '+req.originalUrl+' does not have a handler.'
-		));
+	app.use(function(req, res){
+		res.send(unhandled);
 	});
 
 	var addFile = function(path, contents) {
@@ -41,6 +40,11 @@ module.exports = function(app, options) {
 	options.urls.forEach(function(url){
 		promises.push(new Promise(function(resolve, reject){
 			supertest(app).get(url).end(function(err, res){
+				if (res.text === unhandled)
+					return reject(new errors.ConfigurationError(
+						'URL '+url+' does not have a handler.'
+					));
+
 				if (/\/$/.exec(url))
 					url += 'index';
 				var correctExt = mime.extension(res.get('content-type'));
