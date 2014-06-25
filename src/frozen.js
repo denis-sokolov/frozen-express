@@ -42,7 +42,10 @@ module.exports = function(app, options) {
 		}));
 	};
 
-	var resolveUrlToFile = function(url){
+	var resolveUrlToFile = function(url, options){
+		options = options || {};
+		options.expectedStatus = options.expectedStatus || [200, 300];
+
 		return new Promise(function(resolve, reject){
 			supertest(app).get(url).end(function(err, res){
 				if (res.text === unhandled)
@@ -50,7 +53,9 @@ module.exports = function(app, options) {
 						'URL '+url+' does not have a handler.'
 					));
 
-				if (res.statusCode > 299)
+				var correctStatus = options.expectedStatus[0] <= res.statusCode &&
+					res.statusCode < options.expectedStatus[1];
+				if (!correctStatus)
 					return reject(new Error(res.text));
 
 				var path = url;
