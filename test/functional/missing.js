@@ -16,7 +16,7 @@ util.it('should error on a 404', function(express, done){
 		});
 });
 
-util.it('should not add new handlers on 404', function(express, done){
+var testForMissing404 = function(express, done, run){
 	var app = express();
 
 	// Express 4 blows up if we try to access a 404 that is not set up
@@ -26,7 +26,7 @@ util.it('should not add new handlers on 404', function(express, done){
 
 	supertest(app).get('/').end(function(err, firstRes){
 		if (err) return done(err);
-		frozen(app).on('finish', function(){
+		run(app, function(){
 			supertest(app).get('/').end(function(err, secondRes){
 				if (err) return done(err);
 				if (firstRes.statusCode !== secondRes.statusCode)
@@ -36,5 +36,22 @@ util.it('should not add new handlers on 404', function(express, done){
 				done();
 			});
 		});
+	});
+};
+
+util.it('should not add new handlers on 404', function(express, done){
+	testForMissing404(express, done, function(app, callback){
+		frozen(app).on('finish', callback);
+	});
+});
+util.it('should not add new handlers on 404 after frozen error', function(express, done){
+	testForMissing404(express, done, function(app, callback){
+		app.get('/foo', function(req, res){
+			res.set('content-type', 'application/efwfoiwenoi');
+			res.send('foo');
+		});
+		frozen(app, {urls:['/foo']})
+			.on('finish', function(){ done(new Error('Not supposed to finish succesfully')); })
+			.on('error', callback);
 	});
 });

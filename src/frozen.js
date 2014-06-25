@@ -61,6 +61,7 @@ module.exports = function(app, options) {
 		pipe.end();
 		done = true;
 	}).catch(function(err){
+		done = true;
 		pipe.emit('error', err);
 	});
 
