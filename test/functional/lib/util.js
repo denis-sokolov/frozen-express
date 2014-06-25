@@ -50,12 +50,23 @@ api.test = function(){
 		var app = express();
 
 		var checkFiles = [];
+		var on404;
 		var rethrow = false;
 		var test = {};
 		var urls = [];
 
 		test.app = function(){
+			if (on404)
+				app.use(function(req, res){
+					res.status(404);
+					res.send(on404);
+				});
 			return Promise.resolve(app);
+		};
+
+		test.on404 = function(contents){
+			on404 = contents;
+			return test;
 		};
 
 		test.rethrow = function(){
