@@ -49,9 +49,10 @@ api.test = function(){
 	return function(express, done){
 		var app = express();
 
+		var checkFiles = [];
 		var rethrow = false;
-		var routes = [];
 		var test = {};
+		var urls = [];
 
 		test.app = function(){
 			return Promise.resolve(app);
@@ -63,9 +64,8 @@ api.test = function(){
 		};
 
 		test.route = function(url, path, contents, handler){
-			routes.push({
-				url: url, path: path, contents: contents
-			});
+			urls.push(url);
+			checkFiles.push({ path: path, contents: contents });
 			app.get(url, function(req, res){
 				if (handler) {
 					handler(res);
@@ -78,9 +78,7 @@ api.test = function(){
 		test.results = function(options){
 			options = options || {};
 			if (options.urls !== null) {
-				options.urls = options.urls || routes.map(function(route){
-					return route.url;
-				});
+				options.urls = options.urls || urls;
 			}
 
 			return test.app().then(function(app){
@@ -90,11 +88,11 @@ api.test = function(){
 
 		test.run = function(options){
 			options = options || {};
-			var checkFiles = options.checkFiles || options.checkRoutes || routes;
+			var checkFilesNow = options.checkFiles || options.checkRoutes || checkFiles;
 			delete options.checkFiles;
 
 			return test.results(options).then(function(results){
-				var missing = checkFiles.filter(function(file){
+				var missing = checkFilesNow.filter(function(file){
 					return !results.some(function(attempt){
 						if (file.path !== attempt.relative) {
 							return false;
