@@ -31,12 +31,13 @@ module.exports = function(app, options) {
 		res.send(unhandled);
 	});
 
-	var addFile = function(path, contents) {
+	var addFile = function(f) {
+		var path = f.path;
 		if (path.substr(0, 1) !== '/') {
 			path = '/' + path;
 		}
 		pipe.push(new File({
-			contents: new Buffer(contents),
+			contents: new Buffer(f.contents),
 			path: process.cwd() + path,
 			base: process.cwd()
 		}));
@@ -76,9 +77,7 @@ module.exports = function(app, options) {
 	};
 
 	options.urls.forEach(function(url){
-		promises.push(resolveUrlToFile(url).then(function(f){
-			addFile(f.path, f.contents);
-		}));
+		promises.push(resolveUrlToFile(url).then(addFile));
 	});
 
 	if (options.server) {
