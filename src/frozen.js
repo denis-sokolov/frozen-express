@@ -42,8 +42,8 @@ module.exports = function(app, options) {
 		}));
 	};
 
-	options.urls.forEach(function(url){
-		promises.push(new Promise(function(resolve, reject){
+	var handleUrl = function(url){
+		return new Promise(function(resolve, reject){
 			supertest(app).get(url).end(function(err, res){
 				if (res.text === unhandled)
 					return reject(new errors.ConfigurationError(
@@ -64,7 +64,11 @@ module.exports = function(app, options) {
 				addFile(url, res.text);
 				resolve();
 			});
-		}));
+		});
+	};
+
+	options.urls.forEach(function(url){
+		promises.push(handleUrl(url));
 	});
 
 	if (options.server) {
