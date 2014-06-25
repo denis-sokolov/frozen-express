@@ -20,15 +20,6 @@ module.exports = function(app, options) {
 	options.urls = options.urls || routes.detectUrls(app);
 
 	var pipe = through.obj();
-	var promises = [];
-
-	// Express does not seem to provide API to unregister handlers
-	// Work around that with done + next
-	var done = false;
-	app.use(function(req, res, next){
-		if (done) return next();
-		res.send(unhandled);
-	});
 
 	var addFile = function(f) {
 		var path = f.path;
@@ -41,6 +32,16 @@ module.exports = function(app, options) {
 			base: process.cwd()
 		}));
 	};
+
+	var promises = [];
+
+	// Express does not seem to provide API to unregister handlers
+	// Work around that with done + next
+	var done = false;
+	app.use(function(req, res, next){
+		if (done) return next();
+		res.send(unhandled);
+	});
 
 	options.urls.forEach(function(url){
 		promises.push(urlToFile(app, url).then(function(f){
