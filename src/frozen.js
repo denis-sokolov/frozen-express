@@ -42,7 +42,7 @@ module.exports = function(app, options) {
 		}));
 	};
 
-	var handleUrl = function(url){
+	var resolveUrlToFile = function(url){
 		return new Promise(function(resolve, reject){
 			supertest(app).get(url).end(function(err, res){
 				if (res.text === unhandled)
@@ -53,22 +53,27 @@ module.exports = function(app, options) {
 				if (res.statusCode > 299)
 					return reject(new Error(res.text));
 
-				if (/\/$/.exec(url))
-					url += 'index';
+				var path = url;
+				if (/\/$/.exec(path))
+					path += 'index';
 				var correctExt = mime.extension(res.get('content-type'));
 				if (!correctExt)
 					reject(new Error('Strange content type', res.get('content-type')));
-				if (correctExt !== 'bin' && mime.extension(mime.lookup(url)) !== correctExt)
-					url += '.' + correctExt;
+				if (correctExt !== 'bin' && mime.extension(mime.lookup(path)) !== correctExt)
+					path += '.' + correctExt;
 
-				addFile(url, res.text);
-				resolve();
+				resolve({
+					path: path,
+					contents: res.text
+				});
 			});
 		});
 	};
 
 	options.urls.forEach(function(url){
-		promises.push(handleUrl(url));
+		promises.push(resolveUrlToFile(url).then(function(f){
+			addFile(f.path, f.contents);
+		}));
 	});
 
 	if (options.server) {
