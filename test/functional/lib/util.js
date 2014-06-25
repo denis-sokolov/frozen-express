@@ -12,27 +12,6 @@ var api = {};
 var lib = {};
 
 /**
- * Create an express app using route data
- * @param express library
- * @param [{url}] routes
- * @return Promise(express app)
- */
-lib.makeapp = function(express, routes) {
-	return new Promise(function(resolve){
-		var app = express();
-		routes.forEach(function(route){
-			app.get(route.url, function(req, res){
-				if (route.handler) {
-					route.handler(res);
-				}
-				res.send(route.contents);
-			});
-		});
-		resolve(app);
-	});
-};
-
-/**
  * Get the contents of a pipe
  * @param pipe
  * @return Promise([contents])
@@ -68,12 +47,14 @@ api.it = function(name, callback){
 
 api.test = function(){
 	return function(express, done){
+		var app = express();
+
 		var rethrow = false;
 		var routes = [];
 		var test = {};
 
 		test.app = function(){
-			return lib.makeapp(express, routes);
+			return Promise.resolve(app);
 		};
 
 		test.rethrow = function(){
@@ -83,7 +64,13 @@ api.test = function(){
 
 		test.route = function(url, path, contents, handler){
 			routes.push({
-				url: url, path: path, contents: contents, handler: handler
+				url: url, path: path, contents: contents
+			});
+			app.get(url, function(req, res){
+				if (handler) {
+					handler(res);
+				}
+				res.send(contents);
 			});
 			return test;
 		};
