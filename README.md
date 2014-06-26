@@ -18,7 +18,7 @@ You can use Frozen Express as a command line tool or access it programatically.
 Once you install Frozen Express (`npm install -g frozen-express`), you can use it as follows:
 
 ```bash
-frozen-express ./app.js ./dist
+frozen-express app.js dist
 ```
 
 Here the `app.js` is your module that exports the application, and `dist` is the directory to put the generated files.
