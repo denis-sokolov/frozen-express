@@ -21,3 +21,12 @@ util.it('should create an .htaccess file even if no routes', function(express, d
 			server: 'apache'
 		});
 });
+
+util.it('should create a 404 file even if no routes', function(express, done){
+	test(express, done)
+		.on404('error here')
+		.run({
+			checkFiles: [{path:'.frozen_express_404.html', contents:'error here'}],
+			server: 'apache'
+		});
+});
