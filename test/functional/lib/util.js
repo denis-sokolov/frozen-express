@@ -108,8 +108,16 @@ api.test = function(){
 						if (file.path !== attempt.relative) {
 							return false;
 						}
-						if (file.contents && file.contents !== attempt.contents.toString()) {
-							return false;
+						if (file.contents) {
+							var att = attempt.contents.toString();
+
+							if (file.contents.exec) {
+								if (!file.contents.exec(att))
+									return false;
+							} else {
+								if (file.contents !== att)
+									return false;
+							}
 						}
 						return true;
 					});
