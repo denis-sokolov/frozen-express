@@ -54,7 +54,10 @@ module.exports = function(app, options) {
 	});
 
 	if (options.server) {
-		promises.push(servers[options.server](addFile));
+		promises.push(servers[options.server]({
+			addFile: addFile,
+			base: options.base
+		}));
 		promises.push(urlToFile(app, '/.frozen_express_404', {
 			expectedStatus: [404, 405]
 		}).then(function(f){
