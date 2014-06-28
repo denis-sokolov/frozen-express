@@ -1,5 +1,7 @@
 Options -MultiViews
 
+ErrorDocument 404 FROZENBASE.frozen_express_404
+
 RewriteEngine On
 
 RewriteCond %{REQUEST_URI} (^|/)$

@@ -35,3 +35,4 @@ test('replies for / URLs', '', 200, {body:'Welcome'});
 test('does not reply for index URLs', 'index', 404);
 test('replies for URLs without exceptions', 'about', 200, {body:'About us'});
 test('does not reply for URLs with extensions', 'about.html', 404);
+test('replies for 404', 'foobar', 404, {body:'My test 404'});

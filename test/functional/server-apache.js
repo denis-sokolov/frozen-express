@@ -48,3 +48,12 @@ util.it('should create a 404 file even if no routes', function(express, done){
 			server: 'apache'
 		});
 });
+
+util.it('should add the base url to .htaccess', function(express, done){
+	test(express, done)
+		.run({
+			base: '/THE_TEST_BASE/',
+			checkFiles: [{path:'.htaccess', contents:/THE_TEST_BASE/}],
+			server: 'apache'
+		});
+});
