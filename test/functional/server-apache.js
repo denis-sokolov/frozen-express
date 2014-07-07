@@ -57,3 +57,15 @@ util.it('should add the base url to .htaccess', function(express, done){
 			server: 'apache'
 		});
 });
+
+util.it('should allow extra .htaccess rules', function(express, done){
+	test(express, done)
+		.run({
+			apache: {
+				extraHtaccess: 'CUSTOM_CONTENTS'
+			},
+			base: '/',
+			checkFiles: [{path:'.htaccess', contents:/\nCUSTOM_CONTENTS\n/}],
+			server: 'apache'
+		});
+});

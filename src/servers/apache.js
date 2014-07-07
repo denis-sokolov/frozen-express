@@ -14,6 +14,11 @@ module.exports = function(env) {
 
 	return readFile(__dirname + '/apache/htaccess').then(function(contents){
 		contents = contents.toString().replace(/FROZENBASE/g, env.base);
+
+		if (env.options.extraHtaccess) {
+			contents += '\n' + env.options.extraHtaccess + '\n';
+		}
+
 		env.addFile({path:'.htaccess', contents: contents});
 		return 1;
 	});
