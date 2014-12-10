@@ -47,7 +47,7 @@ module.exports = function(app, options) {
 		promises.push(urlToFile(app, url).then(function(f){
 			if (f.contents === unhandled)
 				return Promise.reject(new errors.ConfigurationError(
-					'URL '+url+' does not have a handler.'
+					'URL ' + url + ' does not have a handler.'
 				));
 			addFile(f);
 		}));

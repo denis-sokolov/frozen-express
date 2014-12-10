@@ -10,7 +10,7 @@
 var factory = require('error-factory');
 
 var err = function(name) {
-	return factory('FrozenExpress.'+name+'Error');
+	return factory('FrozenExpress.' + name + 'Error');
 };
 
 module.exports.ConfigurationError = err('Configuration');
