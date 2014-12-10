@@ -10,6 +10,7 @@ module.exports = function(app, url, options){
 
 	return new Promise(function(resolve, reject){
 		supertest(app).get(url).end(function(err, res){
+			if (err) return reject(err);
 			var correctStatus = options.expectedStatus[0] <= res.statusCode &&
 				res.statusCode < options.expectedStatus[1];
 			if (!correctStatus)
