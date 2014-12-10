@@ -1,0 +1,18 @@
+{
+	"env": {
+		"node": true
+	},
+
+	"rules": {
+		// Style
+		"quotes": "single",
+
+		// Relax style
+		"curly": false,
+		"key-spacing": false,
+		"no-underscore-dangle": false,
+
+		// Relax
+		"no-path-concat": false
+	}
+}

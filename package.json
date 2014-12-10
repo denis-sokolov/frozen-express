@@ -6,7 +6,7 @@
   "scripts": {
     "report-coverage": "istanbul cover --report lcovonly _mocha test test/functional && coveralls < coverage/lcov.info",
     "coverage": "istanbul cover _mocha test test/functional",
-    "lint": "jshint src",
+    "lint": "jshint src && eslint src",
     "test": "mocha test test/functional && npm run lint",
     "test-server-run": "mocha ./test/server/run.js"
   },
@@ -36,6 +36,7 @@
   "devDependencies": {
     "argparse": "^0.1.15",
     "coveralls": "^2.10.0",
+    "eslint": "^0.10.1",
     "express": "^4",
     "express3": "*",
     "istanbul": "^0.3.0",
