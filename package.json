@@ -28,10 +28,10 @@
     "error-factory": "^0.1.0",
     "gulp": "^3.8.1",
     "mime": "^1.2.11",
-    "promise": "^5.0.0",
-    "supertest": "^0.13.0",
+    "promise": "^6.1.0",
+    "supertest": "^0.15.0",
     "through2": "^1.0.0",
-    "vinyl": "^0.2.3"
+    "vinyl": "^0.4.6"
   },
   "devDependencies": {
     "argparse": "^0.1.15",
