@@ -2,12 +2,12 @@
 
 var request = require('request');
 
-var base_url = process.env.FROZEN_TEST_URL;
-if (!base_url) {
+var baseUrl = process.env.FROZEN_TEST_URL;
+if (!baseUrl) {
 	throw new Error('Set FROZEN_TEST_URL env variable');
 }
-if (base_url.substr(-1, 1) !== '/') {
-	base_url += '/';
+if (baseUrl.substr(-1, 1) !== '/') {
+	baseUrl += '/';
 }
 
 /* global it */
@@ -15,7 +15,7 @@ if (base_url.substr(-1, 1) !== '/') {
 var test = function(name, url, status, options) {
 	options = options || {};
 	it(name, function(done){
-		request(base_url + url, function(err, response, body){
+		request(baseUrl + url, function(err, response, body){
 			if (err) return done(err);
 
 			if (response.statusCode !== status)
