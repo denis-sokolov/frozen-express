@@ -26,6 +26,8 @@ var detectExpress4Urls = function(app){
 /**
  * Detect URLs for routes for an app
  *
+ * detectUrls(app) === ['/about', '/company']
+ *
  * @private
  * @param Express app
  * @return [string]

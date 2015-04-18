@@ -4,6 +4,16 @@ var mime = require('mime');
 var Promise = require('promise');
 var supertest = require('supertest');
 
+/**
+ * Transform an Express app and the URL into the contents of that response
+ * @param Express app
+ * @param string url
+ * @param options options
+ * @return {
+ *   path: string path to the resulting file, potentially including its extension
+ *   contents: string
+ * }
+ */
 module.exports = function(app, url, options){
 	options = options || {};
 	options.expectedStatus = options.expectedStatus || [200, 300];

@@ -8,6 +8,11 @@ var readFile = Promise.denodeify(fs.readFile);
 
 var errors = require('../errors');
 
+/**
+ * Adds Apache specific functionality to our frozen configuration
+ * @param env
+ * @return Promise
+ */
 module.exports = function(env) {
 	if (!env.base)
 		throw new errors.ConfigurationError('server:apache requires a base option');
