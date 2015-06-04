@@ -25,10 +25,10 @@ var testForMissing404 = function(express, done, run){
 	app.use(function(req, res, next){ next(); });
 
 	supertest(app).get('/').end(function(err, firstRes){
-		if (err) return done(err);
+		if (err && err.status !== 404) return done(err);
 		run(app, function(){
 			supertest(app).get('/').end(function(err, secondRes){
-				if (err) return done(err);
+				if (err && err.status !== 404) return done(err);
 				if (firstRes.statusCode !== secondRes.statusCode)
 					return done(new Error('Modified status code'));
 				if (firstRes.text !== secondRes.text)
