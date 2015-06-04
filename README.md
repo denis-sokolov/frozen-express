@@ -8,7 +8,7 @@ Express 4 and Express 3 applications are supported.
 [![Code Climate](http://img.shields.io/codeclimate/github/denis-sokolov/frozen-express.svg)](https://codeclimate.com/github/denis-sokolov/frozen-express)
 [![Coverage Status](https://img.shields.io/coveralls/denis-sokolov/frozen-express.svg)](https://coveralls.io/r/denis-sokolov/frozen-express?branch=master)
 [![bitHound Score](https://app.bithound.io/denis-sokolov/frozen-express/badges/score.svg)](http://app.bithound.io/denis-sokolov/frozen-express)
-[![Codacy Badge](https://www.codacy.com/project/badge/b0d4b7efff974dbba490fb12861ef11c)](https://www.codacy.com/app/denis_2849/frozen-express)
+[![Codacy Badge](https://www.codacy.com/project/badge/b0d4b7efff974dbba490fb12861ef11c)](https://www.codacy.com/app/denis-sokolov/frozen-express)
 [![Dependency Status](https://gemnasium.com/denis-sokolov/frozen-express.svg)](https://gemnasium.com/denis-sokolov/frozen-express)
 
 ## Usage
