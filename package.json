@@ -25,14 +25,14 @@
   },
   "homepage": "https://github.com/denis-sokolov/frozen-express",
   "dependencies": {
-    "argparse": "^0.1.15",
+    "argparse": "^1.0.2",
     "error-factory": "^0.1.0",
     "gulp": "^3.8.1",
     "mime": "^1.2.11",
-    "promise": "^6.1.0",
-    "supertest": "^0.15.0",
+    "promise": "^7.0.1",
+    "supertest": "^1.0.1",
     "through2": "^1.0.0",
-    "vinyl": "^0.4.6"
+    "vinyl": "^0.5.0"
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
@@ -41,7 +41,7 @@
     "express3": "*",
     "istanbul": "^0.3.0",
     "jshint": "^2.5.1",
-    "mocha": "^1.20.1",
+    "mocha": "^2.2.5",
     "request": "^2.36.0"
   }
 }
