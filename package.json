@@ -29,7 +29,7 @@
     "error-factory": "^0.1.0",
     "gulp": "^3.8.1",
     "mime": "^1.2.11",
-    "promise": "^6.1.0",
+    "promise": "^7.0.1",
     "supertest": "^0.15.0",
     "through2": "^1.0.0",
     "vinyl": "^0.4.6"
