@@ -115,7 +115,7 @@ api.test = function(){
 								if (!file.contents.exec(att))
 									return false;
 							} else {
-								if (file.contents !== att)
+								if (file.contents.toString() !== att)
 									return false;
 							}
 						}

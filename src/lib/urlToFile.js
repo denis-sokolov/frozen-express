@@ -37,7 +37,7 @@ module.exports = function(app, url, options){
 
 			resolve({
 				path: path,
-				contents: res.text
+				contents: res.text || res.body
 			});
 		});
 	});
