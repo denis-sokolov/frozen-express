@@ -26,6 +26,12 @@ module.exports = function(app, options) {
 		if (path.substr(0, 1) !== '/') {
 			path = '/' + path;
 		}
+
+		// The following line is untested.
+		// However, npm package portent tests fail on Node 3+ without it with
+		// TypeError: must start with number, buffer, array or string
+		f.contents = f.contents.toString();
+
 		pipe.push(new File({
 			contents: new Buffer(f.contents),
 			path: process.cwd() + path,
