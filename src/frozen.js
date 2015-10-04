@@ -50,13 +50,22 @@ module.exports = function(app, options) {
 	});
 
 	options.urls.forEach(function(url){
-		promises.push(urlToFile(app, url).then(function(f){
-			if (f.contents === unhandled)
-				return Promise.reject(new errors.ConfigurationError(
-					'URL ' + url + ' does not have a handler.'
-				));
-			addFile(f);
-		}));
+		promises.push(
+			urlToFile(app, url)
+				.then(function(res){
+					if (res.contents === unhandled)
+						throw new errors.ConfigurationError(
+							'URL ' + url + ' does not have a handler.'
+						);
+					addFile(res);
+				}, function(err){
+					if (err.message === unhandled)
+						throw new errors.ConfigurationError(
+							'URL ' + url + ' does not have a handler.'
+						);
+					throw err;
+				})
+		);
 	});
 
 	if (options.server) {
