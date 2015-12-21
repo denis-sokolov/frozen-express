@@ -36,10 +36,10 @@
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
-    "eslint": "^0.10.1",
+    "eslint": "^1.10.3",
     "express": "^4",
     "express3": "*",
-    "istanbul": "^0.3.0",
+    "istanbul": "^0.4.1",
     "jshint": "^2.5.1",
     "mocha": "^2.2.5",
     "request": "^2.36.0"
