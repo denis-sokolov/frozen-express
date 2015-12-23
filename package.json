@@ -6,7 +6,7 @@
   "scripts": {
     "report-coverage": "istanbul cover --report lcovonly _mocha test test/functional && coveralls < coverage/lcov.info",
     "coverage": "istanbul cover _mocha test test/functional",
-    "lint": "jshint src && eslint src",
+    "lint": "eslint src",
     "test": "mocha test test/functional && npm run lint",
     "test-server-run": "mocha ./test/server/run.js"
   },
@@ -37,10 +37,11 @@
   "devDependencies": {
     "coveralls": "^2.10.0",
     "eslint": "^1.10.3",
+    "eslint": "^1.10.3",
+    "eslint-config-useclark": "^2.0.0",
     "express": "^4",
     "express3": "*",
     "istanbul": "^0.4.1",
-    "jshint": "^2.5.1",
     "mocha": "^2.2.5",
     "request": "^2.36.0"
   }
