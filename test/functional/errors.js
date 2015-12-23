@@ -61,7 +61,7 @@ util.it('should inform if the URL is not routed even with a weird status', funct
 			});
 			frozen(app, { urls: ['/-non-existing'] })
 				.on('error', function(error){
-					if (error.message.indexOf('does not have a handler') > -1)
+					if (error.message.indexOf('Wrong status 404') > -1)
 						return done();
 					done(new Error('Does not properly inform'));
 				})

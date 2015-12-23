@@ -24,7 +24,7 @@ module.exports = function(app, url, options){
 			var correctStatus = options.expectedStatus[0] <= res.statusCode &&
 				res.statusCode < options.expectedStatus[1];
 			if (!correctStatus)
-				return reject(new Error(res.text));
+				return reject(new Error('Wrong status ' + res.statusCode + ' for ' + url));
 
 			var path = url;
 			if (/\/$/.exec(path))
