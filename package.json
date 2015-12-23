@@ -1,6 +1,6 @@
 {
   "name": "frozen-express",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "description": "Freeze an Express.js application into a set of static files",
   "main": "src/frozen.js",
   "scripts": {
@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
-    "eslint": "^1.10.3",
     "eslint": "^1.10.3",
     "eslint-config-useclark": "^2.0.0",
     "express": "^4",
