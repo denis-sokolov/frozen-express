@@ -22,3 +22,11 @@ util.it('should detect multiple routes by itself', function(express, done){
 			urls: null
 		});
 });
+
+util.it('should encode URIs', function(express, done){
+	test(express, done)
+		.route('/:path', 'hello ąčę.html', 'Hello world!')
+		.run({
+			urls: ['/hello ąčę']
+		});
+});

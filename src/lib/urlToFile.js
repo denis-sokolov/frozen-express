@@ -19,7 +19,7 @@ module.exports = function(app, url, options){
 	options.expectedStatus = options.expectedStatus || [200, 300];
 
 	return new Promise(function(resolve, reject){
-		supertest(app).get(url).end(function(err, res){
+		supertest(app).get(encodeURI(url)).end(function(err, res){
 			if (err && err.status !== 404) return reject(err);
 			var correctStatus = options.expectedStatus[0] <= res.statusCode &&
 				res.statusCode < options.expectedStatus[1];
