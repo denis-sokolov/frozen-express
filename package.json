@@ -7,8 +7,7 @@
     "report-coverage": "istanbul cover --report lcovonly _mocha test test/functional && coveralls < coverage/lcov.info",
     "coverage": "istanbul cover _mocha test test/functional",
     "lint": "eslint src",
-    "test": "mocha test test/functional && npm run lint",
-    "test-server-run": "mocha ./test/server/run.js"
+    "test": "mocha test test/functional && npm run lint"
   },
   "bin": "src/bin.js",
   "repository": {

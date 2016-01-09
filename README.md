@@ -52,22 +52,6 @@ Frozen Express supports a number of options:
 
 ```javascript
 var stream = frozen(app, {
-    // Apache specific settings
-    // Use only if server is set to apache
-    apache: {
-        // Any custom .htaccess content to append to the generated file
-        extraHtaccess: '',
-    }
-
-    // Base URL for the website relative to domain root
-    // Required if server is set to apache
-    // Use a single slash if the website will be hosted in the domain root
-    base: '/subdir/',
-
-    // Add control files for serving the application with a particular server
-    // Valid options: 'apache'
-    server: false,
-
     // A list of URLs to freeze
     // By default Frozen will try to detect the URLs itself
     urls: ['/', '/about', '/contact']

@@ -5,9 +5,6 @@ var Promise = require('promise');
 var through = require('through2');
 
 var errors = require('./errors.js');
-var servers = {
-	apache: require('./servers/apache.js')
-};
 var routes = require('./lib/routes.js');
 var urlToFile = require('./lib/urlToFile.js');
 
@@ -15,8 +12,6 @@ var unhandled = 'FROZEN_UNHANDLED';
 
 module.exports = function(app, options) {
 	options = options || {};
-	if (options.server && !(options.server in servers))
-		throw new errors.ConfigurationError('Invalid server setting');
 	options.urls = options.urls || routes.detectUrls(app);
 
 	var pipe = through.obj();
@@ -67,19 +62,6 @@ module.exports = function(app, options) {
 				})
 		);
 	});
-
-	if (options.server) {
-		promises.push(servers[options.server]({
-			addFile: addFile,
-			base: options.base,
-			options: options[options.server] || {}
-		}));
-		promises.push(urlToFile(app, '/.frozen_express_404', {
-			expectedStatus: [404, 405]
-		}).then(function(f){
-			addFile(f);
-		}).catch(function(){ return; }));
-	}
 
 	Promise.all(promises).then(function(){
 		pipe.end();

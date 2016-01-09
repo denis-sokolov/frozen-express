@@ -12,11 +12,3 @@ use `npm install` and `npm test`. The code should be test-driven.
 Before you start doing really big changes,
 it is advisable to open an issue to discuss it up front in case to
 avoid doing work that I will be hesitant to merge in for whatever reason.
-
-### Server configuration
-
-If you work on anything related to serving the resulting files, such as `.htaccess` files, you need server tests on a real Apache:
-
-1. Build a test app using `node src/bin.js --server SERVER test/server/app.js <path>`;
-2. Serve it using the server;
-3. Run `FROZEN_TEST_URL=http://localhost/ npm run test-server-run`.

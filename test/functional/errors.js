@@ -70,17 +70,3 @@ util.it('should inform if the URL is not routed even with a weird status', funct
 				});
 		});
 });
-
-util.it('should throw an error if server option is invalid', function(express, done){
-	test(express, done).app().then(function(app){
-		try {
-			frozen(app, {server: 'invalid'});
-		} catch (e) {
-			if (e instanceof frozen.errors.ConfigurationError) {
-				return done();
-			}
-			return done(e);
-		}
-		done(new Error('Should not have finished successfully'));
-	});
-});
