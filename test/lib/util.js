@@ -5,7 +5,7 @@ var express3 = require('express3');
 var Promise = require('promise');
 var through = require('through2');
 
-var frozen = require('../../..');
+var frozen = require('../..');
 
 var api = {};
 
