@@ -15,7 +15,7 @@ util.it('should return a js file', function(express, done){
 
 util.it('should return an image file', function(express, done){
 	test(express, done)
-		.route('/foo.png', 'foo.png', new Buffer('foobar'), function(res){
+		.route('/foo.png', 'foo.png', 'foobarz\xc3\x28', function(res){
 			res.contentType('image/png');
 		})
 		.run();

@@ -19,7 +19,23 @@ module.exports = function(app, url, options){
 	options.expectedStatus = options.expectedStatus || [200, 300];
 
 	return new Promise(function(resolve, reject){
-		supertest(app).get(encodeURI(url)).end(function(err, res){
+		var request = supertest(app).get(encodeURI(url));
+
+		// The following is a dumb parser that ensures superagent does not
+		// decode binary data such as webfonts.
+		// Unfortunately, there is no good test case that covers this.
+		request.parse(function(res, done) {
+			res.text = '';
+			res.setEncoding('binary');
+			res.on('data', function(chunk){
+				res.text += chunk;
+			});
+			res.on('end', function() {
+				done();
+			});
+		});
+
+		request.end(function(err, res){
 			if (err && err.status !== 404) return reject(err);
 			var correctStatus = options.expectedStatus[0] <= res.statusCode &&
 				res.statusCode < options.expectedStatus[1];
@@ -37,7 +53,7 @@ module.exports = function(app, url, options){
 
 			resolve({
 				path: path,
-				contents: res.text || res.body
+				contents: new Buffer(res.text, 'binary')
 			});
 		});
 	});
