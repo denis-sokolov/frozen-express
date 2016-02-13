@@ -1,7 +1,7 @@
 'use strict';
 
 var File = require('vinyl');
-var Promise = require('promise');
+var queue = require('queue');
 var through = require('through2');
 
 var errors = require('./errors.js');
@@ -29,7 +29,7 @@ module.exports = function(app, options) {
 		}));
 	};
 
-	var promises = [];
+	var q = queue();
 
 	// Express does not seem to provide API to unregister handlers
 	// Work around that with done + next
@@ -40,7 +40,7 @@ module.exports = function(app, options) {
 	});
 
 	options.urls.forEach(function(url){
-		promises.push(
+		q.push(function(cb){
 			urlToFile(app, url)
 				.then(function(res){
 					if (res.contents.toString() === unhandled)
@@ -55,15 +55,23 @@ module.exports = function(app, options) {
 						);
 					throw err;
 				})
-		);
+				.then(cb, cb);
+		});
 	});
 
-	Promise.all(promises).then(function(){
-		pipe.end();
+	// Force async return. queue returns synchronously if no jobs :(
+	q.push(function(cb){ setTimeout(cb, 1); });
+
+	// Slow down. If supertest is overwhelmed with jobs,
+	// "socket hang up" happens.
+	q.concurrency = 5;
+
+	q.start(function(err){
 		done = true;
-	}).catch(function(err){
-		done = true;
-		pipe.emit('error', err);
+		if (err)
+			pipe.emit('error', err);
+		else
+			pipe.end();
 	});
 
 	return pipe;
