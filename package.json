@@ -25,6 +25,7 @@
   "homepage": "https://github.com/denis-sokolov/frozen-express",
   "dependencies": {
     "argparse": "^1.0.2",
+    "array-unique": "^0.2.1",
     "error-factory": "^0.1.0",
     "gulp": "^3.8.1",
     "mime": "^1.2.11",

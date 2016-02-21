@@ -1,5 +1,6 @@
 'use strict';
 
+var arrayUnique = require('array-unique');
 var File = require('vinyl');
 var queue = require('queue');
 var through = require('through2');
@@ -39,7 +40,7 @@ module.exports = function(app, options) {
 		res.send(unhandled);
 	});
 
-	options.urls.forEach(function(url){
+	arrayUnique(options.urls).forEach(function(url){
 		q.push(function(cb){
 			urlToFile(app, url)
 				.then(function(res){
