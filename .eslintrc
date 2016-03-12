@@ -1,3 +1,6 @@
 {
-  "extends": "useclark"
+  "extends": "eslint:recommended",
+  "env": {
+    "node": true
+  }
 }
