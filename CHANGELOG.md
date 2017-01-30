@@ -1,3 +1,7 @@
+# 2.0.0
+
+Drop support for Node < 4.
+
 # 0.5.0
 
 Fix binary file contents.
