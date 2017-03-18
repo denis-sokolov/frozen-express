@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
-    "eslint": "^3.12.2",
+    "eslint": "3.17.1",
     "express": "^4",
     "express3": "*",
     "istanbul": "^0.4.1",
