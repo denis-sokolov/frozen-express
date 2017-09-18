@@ -31,7 +31,7 @@
     "array-unique": "^0.3.2",
     "error-factory": "^0.1.0",
     "gulp": "^3.8.1",
-    "mime": "^1.2.11",
+    "mime": "^2.0.2",
     "promise": "^8.0.0",
     "queue": "^4.0.0",
     "supertest": "^3.0.0",
